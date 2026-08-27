@@ -36,6 +36,7 @@
             txtUsername = new Label();
             picboxUser = new PictureBox();
             panelContent = new Panel();
+            btnProduct = new Button();
             panelMenu.SuspendLayout();
             panelTopMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picboxUser).BeginInit();
@@ -44,6 +45,7 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.WhiteSmoke;
+            panelMenu.Controls.Add(btnProduct);
             panelMenu.Controls.Add(btnTransaction);
             panelMenu.Controls.Add(btnDashboard);
             panelMenu.Controls.Add(panelTopMenu);
@@ -55,30 +57,30 @@
             // 
             // btnTransaction
             // 
-            btnTransaction.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             btnTransaction.BackColor = Color.Gainsboro;
+            btnTransaction.Dock = DockStyle.Top;
             btnTransaction.FlatAppearance.BorderSize = 0;
             btnTransaction.FlatAppearance.MouseDownBackColor = Color.Silver;
             btnTransaction.FlatStyle = FlatStyle.Flat;
             btnTransaction.Font = new Font("Arial Rounded MT Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnTransaction.Location = new Point(0, 139);
+            btnTransaction.Location = new Point(0, 140);
             btnTransaction.Name = "btnTransaction";
             btnTransaction.Size = new Size(383, 40);
             btnTransaction.TabIndex = 2;
-            btnTransaction.Text = "Transaction";
+            btnTransaction.Text = "Transactions";
             btnTransaction.TextAlign = ContentAlignment.MiddleLeft;
             btnTransaction.UseVisualStyleBackColor = false;
             btnTransaction.Click += btnTransaction_Click;
             // 
             // btnDashboard
             // 
-            btnDashboard.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             btnDashboard.BackColor = Color.Gainsboro;
+            btnDashboard.Dock = DockStyle.Top;
             btnDashboard.FlatAppearance.BorderSize = 0;
             btnDashboard.FlatAppearance.MouseDownBackColor = Color.Silver;
             btnDashboard.FlatStyle = FlatStyle.Flat;
             btnDashboard.Font = new Font("Arial Rounded MT Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnDashboard.Location = new Point(0, 99);
+            btnDashboard.Location = new Point(0, 100);
             btnDashboard.Name = "btnDashboard";
             btnDashboard.Size = new Size(383, 40);
             btnDashboard.TabIndex = 1;
@@ -137,6 +139,22 @@
             panelContent.Size = new Size(741, 612);
             panelContent.TabIndex = 1;
             // 
+            // btnProduct
+            // 
+            btnProduct.BackColor = Color.Gainsboro;
+            btnProduct.Dock = DockStyle.Top;
+            btnProduct.FlatAppearance.BorderSize = 0;
+            btnProduct.FlatAppearance.MouseDownBackColor = Color.Silver;
+            btnProduct.FlatStyle = FlatStyle.Flat;
+            btnProduct.Font = new Font("Arial Rounded MT Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnProduct.Location = new Point(0, 180);
+            btnProduct.Name = "btnProduct";
+            btnProduct.Size = new Size(383, 40);
+            btnProduct.TabIndex = 3;
+            btnProduct.Text = "Products";
+            btnProduct.TextAlign = ContentAlignment.MiddleLeft;
+            btnProduct.UseVisualStyleBackColor = false;
+            // 
             // frmDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 14F);
@@ -168,5 +186,6 @@
         private Label txtUsername;
         private PictureBox picboxUser;
         private Panel panelContent;
+        private Button btnProduct;
     }
 }

@@ -225,6 +225,7 @@
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(225, 29);
             txtSearch.TabIndex = 3;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // ucTransactionContent
             // 
@@ -239,6 +240,7 @@
             ForeColor = Color.Black;
             Name = "ucTransactionContent";
             Size = new Size(978, 615);
+            Load += ucTransactionContent_Load;
             panelRight.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panelPayment.ResumeLayout(false);
