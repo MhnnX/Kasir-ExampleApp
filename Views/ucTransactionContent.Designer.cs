@@ -104,7 +104,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(6, 142);
+            label5.Location = new Point(6, 133);
             label5.Name = "label5";
             label5.Size = new Size(54, 15);
             label5.TabIndex = 5;
@@ -113,7 +113,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(6, 65);
+            label4.Location = new Point(6, 13);
             label4.Name = "label4";
             label4.Size = new Size(58, 15);
             label4.TabIndex = 4;
@@ -122,7 +122,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(6, 3);
+            label3.Location = new Point(9, 71);
             label3.Name = "label3";
             label3.Size = new Size(55, 15);
             label3.TabIndex = 3;
@@ -130,19 +130,21 @@
             // 
             // lblChange
             // 
+            lblChange.BackColor = Color.Gainsboro;
             lblChange.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblChange.Location = new Point(6, 157);
+            lblChange.ForeColor = Color.IndianRed;
+            lblChange.Location = new Point(6, 148);
             lblChange.Name = "lblChange";
             lblChange.Size = new Size(354, 47);
             lblChange.TabIndex = 2;
-            lblChange.Text = "1.000.000,00";
+            lblChange.Text = "-0,00";
             lblChange.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtPayment
             // 
             txtPayment.BorderStyle = BorderStyle.FixedSingle;
             txtPayment.Font = new Font("Arial", 16F);
-            txtPayment.Location = new Point(6, 83);
+            txtPayment.Location = new Point(6, 31);
             txtPayment.Name = "txtPayment";
             txtPayment.Size = new Size(351, 32);
             txtPayment.TabIndex = 1;
@@ -150,12 +152,14 @@
             // 
             // lblSubtotal
             // 
+            lblSubtotal.BackColor = Color.Gainsboro;
             lblSubtotal.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSubtotal.Location = new Point(3, 18);
+            lblSubtotal.ForeColor = Color.LimeGreen;
+            lblSubtotal.Location = new Point(6, 86);
             lblSubtotal.Name = "lblSubtotal";
             lblSubtotal.Size = new Size(354, 47);
             lblSubtotal.TabIndex = 0;
-            lblSubtotal.Text = "1.000.000,00";
+            lblSubtotal.Text = "0,00";
             lblSubtotal.TextAlign = ContentAlignment.MiddleRight;
             // 
             // groupBox1
@@ -177,6 +181,7 @@
             dgvCart.AllowUserToDeleteRows = false;
             dgvCart.AllowUserToResizeColumns = false;
             dgvCart.AllowUserToResizeRows = false;
+            dgvCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCart.Dock = DockStyle.Fill;
             dgvCart.Location = new Point(3, 17);
@@ -203,6 +208,7 @@
             dgvProductList.Location = new Point(0, 0);
             dgvProductList.Name = "dgvProductList";
             dgvProductList.ReadOnly = true;
+            dgvProductList.RowTemplate.Height = 45;
             dgvProductList.Size = new Size(615, 510);
             dgvProductList.TabIndex = 0;
             // 
