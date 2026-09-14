@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panelMenu = new Panel();
+            btnLogout = new Button();
             btnProduct = new Button();
             btnTransaction = new Button();
             btnDashboard = new Button();
@@ -37,7 +38,6 @@
             txtUsername = new Label();
             picboxUser = new PictureBox();
             panelContent = new Panel();
-            btnLogout = new Button();
             panelMenu.SuspendLayout();
             panelTopMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picboxUser).BeginInit();
@@ -54,8 +54,25 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(383, 612);
+            panelMenu.Size = new Size(304, 612);
             panelMenu.TabIndex = 0;
+            // 
+            // btnLogout
+            // 
+            btnLogout.BackColor = Color.IndianRed;
+            btnLogout.Dock = DockStyle.Bottom;
+            btnLogout.FlatAppearance.BorderSize = 0;
+            btnLogout.FlatAppearance.MouseDownBackColor = Color.Silver;
+            btnLogout.FlatStyle = FlatStyle.Flat;
+            btnLogout.Font = new Font("Arial Rounded MT Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(0, 572);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(304, 40);
+            btnLogout.TabIndex = 4;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // btnProduct
             // 
@@ -67,7 +84,7 @@
             btnProduct.Font = new Font("Arial Rounded MT Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnProduct.Location = new Point(0, 180);
             btnProduct.Name = "btnProduct";
-            btnProduct.Size = new Size(383, 40);
+            btnProduct.Size = new Size(304, 40);
             btnProduct.TabIndex = 3;
             btnProduct.Text = "Products";
             btnProduct.TextAlign = ContentAlignment.MiddleLeft;
@@ -83,7 +100,7 @@
             btnTransaction.Font = new Font("Arial Rounded MT Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnTransaction.Location = new Point(0, 140);
             btnTransaction.Name = "btnTransaction";
-            btnTransaction.Size = new Size(383, 40);
+            btnTransaction.Size = new Size(304, 40);
             btnTransaction.TabIndex = 2;
             btnTransaction.Text = "Transactions";
             btnTransaction.TextAlign = ContentAlignment.MiddleLeft;
@@ -100,7 +117,7 @@
             btnDashboard.Font = new Font("Arial Rounded MT Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnDashboard.Location = new Point(0, 100);
             btnDashboard.Name = "btnDashboard";
-            btnDashboard.Size = new Size(383, 40);
+            btnDashboard.Size = new Size(304, 40);
             btnDashboard.TabIndex = 1;
             btnDashboard.Text = "Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
@@ -116,7 +133,7 @@
             panelTopMenu.Dock = DockStyle.Top;
             panelTopMenu.Location = new Point(0, 0);
             panelTopMenu.Name = "panelTopMenu";
-            panelTopMenu.Size = new Size(383, 100);
+            panelTopMenu.Size = new Size(304, 100);
             panelTopMenu.TabIndex = 0;
             // 
             // txtRoleName
@@ -152,27 +169,10 @@
             // panelContent
             // 
             panelContent.Dock = DockStyle.Fill;
-            panelContent.Location = new Point(383, 0);
+            panelContent.Location = new Point(304, 0);
             panelContent.Name = "panelContent";
-            panelContent.Size = new Size(741, 612);
+            panelContent.Size = new Size(820, 612);
             panelContent.TabIndex = 1;
-            // 
-            // btnLogout
-            // 
-            btnLogout.BackColor = Color.IndianRed;
-            btnLogout.Dock = DockStyle.Bottom;
-            btnLogout.FlatAppearance.BorderSize = 0;
-            btnLogout.FlatAppearance.MouseDownBackColor = Color.Silver;
-            btnLogout.FlatStyle = FlatStyle.Flat;
-            btnLogout.Font = new Font("Arial Rounded MT Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnLogout.ForeColor = Color.White;
-            btnLogout.Location = new Point(0, 572);
-            btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(383, 40);
-            btnLogout.TabIndex = 4;
-            btnLogout.Text = "Logout";
-            btnLogout.UseVisualStyleBackColor = false;
-            btnLogout.Click += btnLogout_Click;
             // 
             // frmDashboard
             // 
