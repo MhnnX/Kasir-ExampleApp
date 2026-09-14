@@ -1,13 +1,7 @@
 ﻿using Kasir_ExampleApp.Data;
 using Kasir_ExampleApp.Helpers;
-using Kasir_ExampleApp.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.ComponentModel;
-using System.Drawing; // Tambahan wajib untuk merubah warna teks kembalian
 using System.Drawing.Printing;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace Kasir_ExampleApp.Views
 {
@@ -38,44 +32,44 @@ namespace Kasir_ExampleApp.Views
             dgvCart.Columns["Harga"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvCart.Columns["Qty"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            dgvProductList.CellDoubleClick += DgvProductList_CellDoubleClick;
         }
 
         private void ucTransactionContent_Load(object sender, EventArgs e)
         {
-            LoadDataProducts();
+            RenderProductCards();
         }
 
-        private void LoadDataProducts()
+        private void RenderProductCards(string keyword = "")
         {
-            var products = _context.Products
-                .Include(b => b.Category)
-                .Select(b => new
-                {
-                    b.Id,
-                    Nama_Barang = b.Nama_Barang,
-                    Harga_Jual = b.Harga_Jual.ToRupiah(),
-                    Stok = b.Stok,
-                    Jenis_Produk = b.Category != null ? b.Category.Name : "Tanpa Kategori"
-                })
-                .ToList();
+            flowLayoutPanelProducts.SuspendLayout();
+            flowLayoutPanelProducts.Controls.Clear();
 
-            dgvProductList.DataSource = products;
-            dgvProductList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dgvProductList.Columns["Nama_Barang"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            var query = _context.Products.AsQueryable();
 
-            dgvProductList.Columns["Nama_Barang"].HeaderText = "Nama Produk";
-            dgvProductList.Columns["Harga_Jual"].HeaderText = "Harga Jual";
-            dgvProductList.Columns["Stok"].HeaderText = "Stok Barang";
-            dgvProductList.Columns["Jenis_Produk"].HeaderText = "Jenis Produk";
-            dgvProductList.Columns["Id"].Visible = false;
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                query = query.Where(p => p.Nama_Barang.ToLower().Contains(keyword.ToLower()));
+            }
+
+            var products = query.ToList();
+
+            foreach (var product in products)
+            {
+                var card = new Kasir_ExampleApp.Views.Card.ProductCard();
+
+                Image productImage = null;
+
+                card.SetData(product.Id, product.Nama_Barang, product.Harga_Jual, productImage);
+                card.OnProductSelected += Card_OnProductSelected;
+
+                flowLayoutPanelProducts.Controls.Add(card);
+            }
+
+            flowLayoutPanelProducts.ResumeLayout();
         }
 
-        private void DgvProductList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void Card_OnProductSelected(object sender, int productId)
         {
-            if (e.RowIndex < 0) return;
-
-            int productId = Convert.ToInt32(dgvProductList.Rows[e.RowIndex].Cells["Id"].Value);
             var existingItem = _cartList.FirstOrDefault(c => c.Id == productId);
 
             if (existingItem != null)
@@ -105,7 +99,6 @@ namespace Kasir_ExampleApp.Views
             decimal total = _cartList.Sum(item => item.Subtotal);
             lblSubtotal.Text = total.ToRupiah();
 
-            // Panggil ulang perhitungan kembalian jika pembayaran sudah diisi sebelumnya
             if (decimal.TryParse(txtPayment.Text.Replace(".", ""), out decimal payment))
             {
                 HitungKembalian(payment);
@@ -114,12 +107,8 @@ namespace Kasir_ExampleApp.Views
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            string keyword = txtSearch.Text.ToLower();
-            var filteredProduct = _context.Products
-                .Where(p => p.Nama_Barang.ToLower().Contains(keyword))
-                .ToList();
-
-            dgvProductList.DataSource = filteredProduct;
+            string keyword = txtSearch.Text;
+            RenderProductCards(keyword);
         }
 
         private void TxtPayment_KeyPress(object sender, KeyPressEventArgs e)
@@ -171,14 +160,12 @@ namespace Kasir_ExampleApp.Views
 
         private void BtnCheckout_Click(object sender, EventArgs e)
         {
-            // 1. Validasi Keranjang Kosong
             if (_cartList.Count == 0)
             {
                 MessageBox.Show("Keranjang belanja masih kosong!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Validasi Pembayaran Kurang
             decimal total = _cartList.Sum(item => item.Subtotal);
             decimal.TryParse(txtPayment.Text.Replace(".", ""), out decimal payment);
 
@@ -188,18 +175,13 @@ namespace Kasir_ExampleApp.Views
                 return;
             }
 
-            // TODO: Nanti sisipkan kode Entity Framework untuk INSERT ke tabel Penjualan & Detail_Penjualan di sini.
-            // TODO: Kurangi properti Stok di tabel Barang.
-
-            // 3. Panggil Dialog Print Struk
             PrintDocument pd = new PrintDocument();
             pd.PrintPage += CetakStruk_PrintPage;
 
             PrintPreviewDialog ppd = new PrintPreviewDialog();
             ppd.Document = pd;
-            ppd.ShowDialog(); // Munculkan jendela preview struk
+            ppd.ShowDialog();
 
-            // 4. Bersihkan keranjang setelah struk selesai dicetak
             _cartList.Clear();
             txtPayment.Text = "";
             lblChange.Text = "0";
@@ -211,15 +193,13 @@ namespace Kasir_ExampleApp.Views
             Graphics g = e.Graphics;
             Font fontRegular = new Font("Courier New", 10);
             Font fontBold = new Font("Courier New", 12, FontStyle.Bold);
-            int y = 20; // Kordinat vertikal awal
+            int y = 20; 
 
-            // Header Toko
             g.DrawString("TOKO KASIR EXAMPLE", fontBold, Brushes.Black, new PointF(60, y));
             y += 30;
             g.DrawString("-----------------------------------", fontRegular, Brushes.Black, new PointF(10, y));
             y += 20;
 
-            // Detail Barang
             foreach (var item in _cartList)
             {
                 g.DrawString(item.NamaProduk, fontRegular, Brushes.Black, new PointF(10, y));
@@ -228,12 +208,10 @@ namespace Kasir_ExampleApp.Views
                 string detailQtyHarga = $"{item.Qty}x {item.Harga}";
                 g.DrawString(detailQtyHarga, fontRegular, Brushes.Black, new PointF(10, y));
 
-                // Rata kanan untuk subtotal
                 g.DrawString(item.Subtotal.ToRupiah(), fontRegular, Brushes.Black, new PointF(220, y));
                 y += 20;
             }
 
-            // Footer Transaksi
             g.DrawString("-----------------------------------", fontRegular, Brushes.Black, new PointF(10, y));
             y += 20;
             g.DrawString($"Total   : {lblSubtotal.Text}", fontBold, Brushes.Black, new PointF(10, y));
@@ -245,7 +223,6 @@ namespace Kasir_ExampleApp.Views
             g.DrawString("Terima Kasih Atas Kunjungan Anda", fontRegular, Brushes.Black, new PointF(30, y));
         }
 
-        // Helper kecil untuk mengambil teks pembayaran dari txtPayment saat dicetak
         private string paymentFormatted()
         {
             decimal.TryParse(txtPayment.Text.Replace(".", ""), out decimal payment);

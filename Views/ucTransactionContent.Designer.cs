@@ -40,17 +40,16 @@
             lblSubtotal = new Label();
             groupBox1 = new GroupBox();
             dgvCart = new DataGridView();
-            productPanel = new Panel();
-            dgvProductList = new DataGridView();
             label1 = new Label();
             txtSearch = new TextBox();
+            flowLayoutPanelProducts = new FlowLayoutPanel();
+            panel2 = new Panel();
             panelRight.SuspendLayout();
             panel1.SuspendLayout();
             panelPayment.SuspendLayout();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCart).BeginInit();
-            productPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvProductList).BeginInit();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // panelRight
@@ -190,32 +189,10 @@
             dgvCart.Size = new Size(357, 165);
             dgvCart.TabIndex = 0;
             // 
-            // productPanel
-            // 
-            productPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            productPanel.Controls.Add(dgvProductList);
-            productPanel.Location = new Point(0, 105);
-            productPanel.Name = "productPanel";
-            productPanel.Size = new Size(615, 510);
-            productPanel.TabIndex = 1;
-            // 
-            // dgvProductList
-            // 
-            dgvProductList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvProductList.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllHeaders;
-            dgvProductList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProductList.Dock = DockStyle.Fill;
-            dgvProductList.Location = new Point(0, 0);
-            dgvProductList.Name = "dgvProductList";
-            dgvProductList.ReadOnly = true;
-            dgvProductList.RowTemplate.Height = 45;
-            dgvProductList.Size = new Size(615, 510);
-            dgvProductList.TabIndex = 0;
-            // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(14, 25);
+            label1.Location = new Point(21, 25);
             label1.Name = "label1";
             label1.Size = new Size(91, 15);
             label1.TabIndex = 2;
@@ -227,20 +204,39 @@
             txtSearch.BorderStyle = BorderStyle.FixedSingle;
             txtSearch.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtSearch.ForeColor = Color.Black;
-            txtSearch.Location = new Point(17, 43);
+            txtSearch.Location = new Point(21, 43);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(225, 29);
             txtSearch.TabIndex = 3;
             txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
+            // flowLayoutPanelProducts
+            // 
+            flowLayoutPanelProducts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            flowLayoutPanelProducts.AutoScroll = true;
+            flowLayoutPanelProducts.BorderStyle = BorderStyle.FixedSingle;
+            flowLayoutPanelProducts.Location = new Point(0, 102);
+            flowLayoutPanelProducts.Name = "flowLayoutPanelProducts";
+            flowLayoutPanelProducts.Size = new Size(615, 513);
+            flowLayoutPanelProducts.TabIndex = 4;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(txtSearch);
+            panel2.Controls.Add(label1);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(615, 96);
+            panel2.TabIndex = 5;
             // 
             // ucTransactionContent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            Controls.Add(txtSearch);
-            Controls.Add(label1);
-            Controls.Add(productPanel);
+            Controls.Add(panel2);
+            Controls.Add(flowLayoutPanelProducts);
             Controls.Add(panelRight);
             Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = Color.Black;
@@ -253,17 +249,14 @@
             panelPayment.PerformLayout();
             groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvCart).EndInit();
-            productPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvProductList).EndInit();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private Panel panelRight;
-        private Panel productPanel;
-        private DataGridView dgvProductList;
         private Label label1;
         private TextBox txtSearch;
         private GroupBox groupBox1;
@@ -277,5 +270,7 @@
         private Label lblChange;
         private Panel panel1;
         private Button btnCheckout;
+        private FlowLayoutPanel flowLayoutPanelProducts;
+        private Panel panel2;
     }
 }

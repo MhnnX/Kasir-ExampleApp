@@ -12,7 +12,7 @@ namespace Kasir_ExampleApp
 
         private void OpenChildControl(UserControl childControl)
         {
-            if(activeControl != null)
+            if (activeControl != null)
             {
                 panelContent.Controls.Remove(activeControl);
                 activeControl.Dispose();
@@ -33,6 +33,11 @@ namespace Kasir_ExampleApp
         private void btnTransaction_Click(object sender, EventArgs e)
         {
             OpenChildControl(new Views.ucTransactionContent());
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

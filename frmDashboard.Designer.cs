@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panelMenu = new Panel();
+            btnProduct = new Button();
             btnTransaction = new Button();
             btnDashboard = new Button();
             panelTopMenu = new Panel();
@@ -36,7 +37,7 @@
             txtUsername = new Label();
             picboxUser = new PictureBox();
             panelContent = new Panel();
-            btnProduct = new Button();
+            btnLogout = new Button();
             panelMenu.SuspendLayout();
             panelTopMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picboxUser).BeginInit();
@@ -45,6 +46,7 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.WhiteSmoke;
+            panelMenu.Controls.Add(btnLogout);
             panelMenu.Controls.Add(btnProduct);
             panelMenu.Controls.Add(btnTransaction);
             panelMenu.Controls.Add(btnDashboard);
@@ -54,6 +56,22 @@
             panelMenu.Name = "panelMenu";
             panelMenu.Size = new Size(383, 612);
             panelMenu.TabIndex = 0;
+            // 
+            // btnProduct
+            // 
+            btnProduct.BackColor = Color.Gainsboro;
+            btnProduct.Dock = DockStyle.Top;
+            btnProduct.FlatAppearance.BorderSize = 0;
+            btnProduct.FlatAppearance.MouseDownBackColor = Color.Silver;
+            btnProduct.FlatStyle = FlatStyle.Flat;
+            btnProduct.Font = new Font("Arial Rounded MT Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnProduct.Location = new Point(0, 180);
+            btnProduct.Name = "btnProduct";
+            btnProduct.Size = new Size(383, 40);
+            btnProduct.TabIndex = 3;
+            btnProduct.Text = "Products";
+            btnProduct.TextAlign = ContentAlignment.MiddleLeft;
+            btnProduct.UseVisualStyleBackColor = false;
             // 
             // btnTransaction
             // 
@@ -139,21 +157,22 @@
             panelContent.Size = new Size(741, 612);
             panelContent.TabIndex = 1;
             // 
-            // btnProduct
+            // btnLogout
             // 
-            btnProduct.BackColor = Color.Gainsboro;
-            btnProduct.Dock = DockStyle.Top;
-            btnProduct.FlatAppearance.BorderSize = 0;
-            btnProduct.FlatAppearance.MouseDownBackColor = Color.Silver;
-            btnProduct.FlatStyle = FlatStyle.Flat;
-            btnProduct.Font = new Font("Arial Rounded MT Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnProduct.Location = new Point(0, 180);
-            btnProduct.Name = "btnProduct";
-            btnProduct.Size = new Size(383, 40);
-            btnProduct.TabIndex = 3;
-            btnProduct.Text = "Products";
-            btnProduct.TextAlign = ContentAlignment.MiddleLeft;
-            btnProduct.UseVisualStyleBackColor = false;
+            btnLogout.BackColor = Color.IndianRed;
+            btnLogout.Dock = DockStyle.Bottom;
+            btnLogout.FlatAppearance.BorderSize = 0;
+            btnLogout.FlatAppearance.MouseDownBackColor = Color.Silver;
+            btnLogout.FlatStyle = FlatStyle.Flat;
+            btnLogout.Font = new Font("Arial Rounded MT Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(0, 572);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(383, 40);
+            btnLogout.TabIndex = 4;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // frmDashboard
             // 
@@ -187,5 +206,6 @@
         private PictureBox picboxUser;
         private Panel panelContent;
         private Button btnProduct;
+        private Button btnLogout;
     }
 }
