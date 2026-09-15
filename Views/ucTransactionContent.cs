@@ -32,11 +32,109 @@ namespace Kasir_ExampleApp.Views
             dgvCart.Columns["Harga"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvCart.Columns["Qty"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
+            if (!dgvCart.Columns.Contains("colAction"))
+            {
+                var colAction = new DataGridViewButtonColumn
+                {
+                    Name = "colAction",
+                    HeaderText = "Aksi",
+                    Text = "-",
+                    UseColumnTextForButtonValue = true,
+                    Width = 50,
+                };
+                dgvCart.Columns.Add(colAction);
+            }
+
+            dgvCart.CellMouseDown += DgvCart_CellMouseDown;
+
         }
 
         private void ucTransactionContent_Load(object sender, EventArgs e)
         {
             RenderProductCards();
+        }
+
+        private void DgvCart_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            // Pastikan klik di baris data dan di kolom tombol aksi
+            if (e.RowIndex < 0 || e.ColumnIndex != dgvCart.Columns["colAction"].Index)
+                return;
+
+            var item = _cartList[e.RowIndex];
+
+            if (e.Button == MouseButtons.Left)
+            {
+                // Klik kiri: Kurangi 1
+                KurangiItem(item, 1);
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                // Klik kanan: Tampilkan dialog input jumlah
+                TampilkanDialogPengurangan(item);
+            }
+        }
+
+        private void TampilkanDialogPengurangan(CartItem item)
+        {
+            using var form = new Form
+            {
+                Width = 280,
+                Height = 160,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = "Kurangi Jumlah",
+                StartPosition = FormStartPosition.CenterParent,
+                MaximizeBox = false,
+                MinimizeBox = false
+            };
+
+            var lbl = new Label { Left = 20, Top = 15, Text = $"Kurangi Qty (Maks: {item.Qty}):", AutoSize = true };
+            var num = new NumericUpDown
+            {
+                Left = 20,
+                Top = 40,
+                Width = 220,
+                Minimum = 1,
+                Maximum = item.Qty,
+                Value = 1
+            };
+
+            var btnOk = new Button { Text = "Kurangi", Left = 60, Width = 80, Top = 80, DialogResult = DialogResult.OK };
+            var btnCancel = new Button { Text = "Batal", Left = 150, Width = 80, Top = 80, DialogResult = DialogResult.Cancel };
+
+            form.Controls.AddRange(new Control[] { lbl, num, btnOk, btnCancel });
+            form.AcceptButton = btnOk;
+            form.CancelButton = btnCancel;
+
+            if (form.ShowDialog(this) == DialogResult.OK)
+            {
+                KurangiItem(item, (int)num.Value);
+            }
+        }
+
+        private void KurangiItem(CartItem item, int jumlahKurang)
+        {
+            if (jumlahKurang <= 0) return;
+
+            if (item.Qty - jumlahKurang <= 0)
+            {
+                var confirm = MessageBox.Show(
+                    $"Hapus '{item.NamaProduk}' dari keranjang?",
+                    "Konfirmasi Hapus",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (confirm == DialogResult.Yes)
+                {
+                    _cartList.Remove(item);
+                }
+            }
+            else
+            {
+                item.Qty -= jumlahKurang;
+                _cartList.ResetBindings();
+            }
+
+            HitungGrandTotal();
         }
 
         private void RenderProductCards(string keyword = "")

@@ -1,22 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Kasir_ExampleApp.Models
 {
+    [Table("Products")]
     public class Product
     {
+        [Key]
         public int Id { get; set; }
+
+        [Required]
+        [MaxLength(150)]
         public string Nama_Barang { get; set; }
 
-        [Precision(18, 2)]
-        public decimal Harga_Beli { get; set; }
-
-        [Precision(18, 2)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Harga_Jual { get; set; }
-        public int Stok { get; set; }
-        public int Id_Kategori { get; set; }
 
-        [ForeignKey("Id_Kategori")]
+        public int Stok { get; set; }
+
+        [MaxLength(500)]
+        public string ImagePath { get; set; }
+
+        public int? CategoryId { get; set; }
+
+        [ForeignKey("CategoryId")]
         public Category Category { get; set; }
     }
 }
